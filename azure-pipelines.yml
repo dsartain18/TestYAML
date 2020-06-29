@@ -6,14 +6,24 @@
 trigger:
 - develop
 
-pool:
-  vmImage: 'vs2017-win2016'
+stages:
+- stage: Build
+  jobs: 
+  - job: Build
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+    pool:
+     vmImage: 'vs2017-win2016'
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    steps:
+    - script: echo Hello, world!
+      displayName: 'Run a one-line script'
+
+    - script: |
+        echo Add other tasks to build, test, and deploy your project.
+        echo See https://aka.ms/yaml
+      displayName: 'Run a multi-line script'
+- stage: Deploy
+  jobs: 
+  - job: Deploy
+    pool:
+      vmImage: 'vs2017-win2016'    
