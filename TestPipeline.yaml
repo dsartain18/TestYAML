@@ -1,0 +1,12 @@
+--- # Test Pipeline https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=example%2Cparameter-schema
+  name: $(Date:yyyyMMdd)$(Rev:.r)
+  stages: 
+  - stage: Build
+    jobs: BuildJob
+    steps: 
+    - script: echo Building!
+  - stage: Deploy Dev
+    jobs: 
+    - job: DeployDev
+      steps: 
+      - script: echo Deploying the code to Dev!
