@@ -61,8 +61,8 @@ stages:
                 templateLocation: 'Linked artifact' # Options: linked Artifact, uRL Of The File
                 #csmFileLink: # Required when templateLocation == URL Of The File
                 #csmParametersFileLink: # Optional
-                csmFile: '$(System.DefaultWorkingDirectory)//drop/AzureResourceGroup/azuredeploy.json' # Required when  TemplateLocation == Linked Artifact
-                csmParametersFile: '$(System.DefaultWorkingDirectory)//drop/AzureResourceGroup/azuredeploy.parameters-dev.json' # Optional
+                csmFile: '$(System.DefaultWorkingDirectory)/_TestYAML/drop/AzureResourceGroup/azuredeploy.json' # Required when  TemplateLocation == Linked Artifact
+                csmParametersFile: '$(System.DefaultWorkingDirectory)/_TestYAML/drop/AzureResourceGroup/azuredeploy.parameters-dev.json' # Optional
                 #overrideParameters: # Optional
                 deploymentMode: 'Incremental' # Options: Incremental, Complete, Validation
                 enableDeploymentPrerequisites: 'None' # Optional. Options: none, configureVMwithWinRM, configureVMWithDGAgent
