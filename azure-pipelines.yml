@@ -67,4 +67,14 @@ stages:
                 #outputVariable: # Optional
                 #deploymentName: # Optional
                 #deploymentOutputs: # Optional
-                #addSpnToEnvironment: false # Optional                       
+                #addSpnToEnvironment: false # Optional      
+            - task: AzureRmWebAppDeployment@4
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'TestYAML'
+                appType: 'webApp'
+                WebAppName: 'td-TestYAML-dev'
+                packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+                TakeAppOfflineFlag: true
+                UseWebDeploy: true
+                RenameFilesFlag: true
