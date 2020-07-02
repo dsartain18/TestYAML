@@ -4,7 +4,7 @@
     "parameters": {
         "webAppName": {
             "type": "string",
-            "defaultValue": "[concat('td-testYaml-dev')]",
+            "defaultValue": "[concat('td-testYaml-default')]",
             "metadata": {
                 "description": "Web app name."
             },

@@ -31,6 +31,12 @@ stages:
         msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactstagingdirectory)\\" /p:SourceLinkCreate=true'
         platform: '$(buildPlatform)'
         configuration: '$(buildConfiguration)'
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(build.ArtifactStagingDirectory)/AzureResourceGroup'
+      inputs:
+        SourceFolder: TestYAML\AzureResourceGroup
+        Contents: '*.json'
+        TargetFolder: '$(build.ArtifactStagingDirectory)/AzureResourceGroup'
     - task: PublishBuildArtifacts@1
       inputs: 
         pathToPublish: '$(Build.ArtifactStagingDirectory)' 
@@ -40,7 +46,6 @@ stages:
         #parallel: false # Optional
         #parallelCount: # Optional
         #fileCopyOptions: #Optional
-    
 - stage: Deploy
   jobs: 
   - deployment: DeployARMTemplate
@@ -52,22 +57,6 @@ stages:
       runOnce:
         deploy:
           steps:
-            - task: DownloadBuildArtifacts@0
-              inputs: 
-                buildType: 'current' # Options: current, specific
-                #project: # Required when buildType == Specific
-                #pipeline: # Required when buildType == Specific
-                #specificBuildWithTriggering: false # Optional
-                buildVersionToDownload: 'latest' # Required when buildType == Specific. Options: latest, latestFromBranch, specific
-                #allowPartiallySucceededBuilds: false # Optional
-                #branchName: 'refs/heads/master' # Required when buildType == Specific && BuildVersionToDownload == LatestFromBranch
-                #buildId: # Required when buildType == Specific && BuildVersionToDownload == Specific
-                #tags: # Optional
-                #downloadType: 'single' # Choose whether to download a single artifact or all artifacts of a specific build. Options: single, specific
-                artifactName: 'drop' # Required when downloadType == Single
-                #itemPattern: '**' # Optional
-                downloadPath: '$(System.ArtifactsDirectory)' 
-                #parallelizationLimit: '8' # Optional
             - task: AzureResourceGroupDeployment@2
               inputs:
                 azureSubscription: 'TestYAML'
@@ -77,8 +66,8 @@ stages:
                 templateLocation: 'Linked artifact' # Options: linked Artifact, uRL Of The File
                 #csmFileLink: # Required when templateLocation == URL Of The File
                 #csmParametersFileLink: # Optional
-                csmFile: '$(System.DefaultWorkingDirectory)/_dsartain18.TestYAML/drop/AzureResourceGroup/azuredeploy.json' # Required when  TemplateLocation == Linked Artifact
-                csmParametersFile: '$(System.DefaultWorkingDirectory)/__dsartain18.TestYAML/drop/AzureResourceGroup/azuredeploy.parameters-dev.json' # Optional
+                csmFile: '$(System.DefaultWorkingDirectory)/drop/AzureResourceGroup/azuredeploy.json' # Required when  TemplateLocation == Linked Artifact
+                csmParametersFile: '$(System.DefaultWorkingDirectory)/drop/AzureResourceGroup/azuredeploy.parameters-dev.json' # Optional
                 #overrideParameters: # Optional
                 deploymentMode: 'Incremental' # Options: Incremental, Complete, Validation
                 enableDeploymentPrerequisites: 'None' # Optional. Options: none, configureVMwithWinRM, configureVMWithDGAgent
