@@ -74,3 +74,13 @@ stages:
                 csmFile: '$(System.ArtifactsDirectory)/$(Parameters.ArtifactName)/AzureResourceGroup/azuredeploy.json'
                 csmParametersFile: '$(System.ArtifactsDirectory)/$(Parameters.ArtifactName)/AzureResourceGroup/azuredeploy.parameters-dev.json'
                 deploymentMode: 'Incremental'
+            - task: AzureRmWebAppDeployment@4
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: 'TestYAML'
+                appType: 'webApp'
+                WebAppName: 'td-TestYAML-dev'
+                packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+                TakeAppOfflineFlag: true
+                UseWebDeploy: true
+                RenameFilesFlag: true
