@@ -80,7 +80,7 @@ stages:
                 azureSubscription: 'TestYAML'
                 appType: 'webApp'
                 WebAppName: 'td-TestYAML-dev'
-                packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+                packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
                 TakeAppOfflineFlag: true
                 UseWebDeploy: true
                 RenameFilesFlag: true
